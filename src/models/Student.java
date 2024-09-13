@@ -2,15 +2,13 @@ package models;
 
 public class Student extends User {
 
-	private String studentID;
 	private String academicLevel;
 
-	public String getStudentID() {
-		return studentID;
-	}
-
-	public void setStudentID(String studentID) {
-		this.studentID = studentID;
+	public Student(int id, String name, String email, String academicLevel) {
+		setId(id);
+		setName(name);
+		setEmail(email);
+		setAcademicLevel(academicLevel);
 	}
 
 	public String getAcademicLevel() {

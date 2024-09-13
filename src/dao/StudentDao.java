@@ -1,14 +1,16 @@
 package dao;
 
+import java.util.List;
+
+import models.Student;
+
 public interface StudentDao {
 
-	public abstract void createStudentTable();
+	public abstract void addStudent(Student student);
 
-	public abstract void addStudent();
+	public abstract List<Student> displayStudents();
 
-	public abstract void displayStudents();
+	public abstract Boolean updateStudent(Student student);
 
-	public abstract void updateStudent(int id);
-
-	public abstract void deleteStudent(int id);
+	public abstract Boolean deleteStudent(Student student);
 }

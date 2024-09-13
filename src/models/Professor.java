@@ -1,15 +1,13 @@
 package models;
 
 public class Professor extends User {
-	private String professorID;
 	private String department;
 
-	public String getProfessorID() {
-		return professorID;
-	}
-
-	public void setProfessorID(String professorID) {
-		this.professorID = professorID;
+	public Professor(int id, String name, String email, String departement) {
+		setId(id);
+		setName(name);
+		setEmail(email);
+		setDepartment(departement);
 	}
 
 	public String getDepartment() {
