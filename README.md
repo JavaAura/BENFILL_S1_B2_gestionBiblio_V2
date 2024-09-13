@@ -1,72 +1,72 @@
-# Gestion Bibliothèque Municipale - V2
+# Municipal Library Management - V2
 
-## Description du projet
-Cette application de gestion de bibliothèque municipale permet de gérer efficacement les livres, les magazines, les thèses universitaires, et les journaux scientifiques, ainsi que les processus de prêt et de retour. Le système offre des rôles distincts pour les utilisateurs, tels que les étudiants et les professeurs, chacun ayant des fonctionnalités spécifiques selon son rôle.
+## Project Description
+This municipal library management application allows for efficient handling of books, magazines, academic theses, and scientific journals, as well as the borrowing and returning processes. The system offers distinct roles for users, such as students and professors, each with specific functionalities according to their role.
 
-## Objectif général de l'application
-L'objectif principal de cette application est d'automatiser les tâches courantes de gestion de bibliothèque, notamment :
-- Gérer l'inventaire des documents (livres, magazines, thèses, etc.)
-- Permettre l'emprunt et le retour de documents
-- Améliorer la gestion des utilisateurs par des rôles spécifiques (étudiant et professeur)
+## General Objective of the Application
+The main goal of this application is to automate the common tasks of library management, including:
+- Managing the inventory of documents (books, magazines, theses, etc.)
+- Facilitating the borrowing and returning of documents
+- Improving user management through specific roles (student and professor)
 
-## Technologies utilisées
-- **Java 8** : Langage principal pour le développement
-- **Eclipse IDE** : Environnement de développement intégré
-- **PostgreSQL** : Base de données relationnelle pour la persistance des données
-- **JDBC (Java Database Connectivity)** : Pour la gestion de la persistance des données
-- **Git & GitHub** : Gestion de version et hébergement du projet
+## Technologies Used
+- **Java 8**: Main programming language for development
+- **Eclipse IDE**: Integrated Development Environment
+- **PostgreSQL**: Relational database for data persistence
+- **JDBC (Java Database Connectivity)**: For managing data persistence
+- **Git & GitHub**: Version control and project hosting
 
-## Structure du projet
-Le projet est organisé comme suit :
+## Project Structure
+The project is organized as follows:
 
-- **controllers** : Gère les contrôleurs qui relient les vues et la logique métier (ex. `AppController`, `LibraryController`).
-- **dao** : Contient les interfaces pour l'accès aux données des documents et utilisateurs (`DocumentDao`, `BookDao`, etc.).
-- **db** : Contient les classes pour la gestion de la connexion et des requêtes à la base de données (`DbConnection`, `DbRequest`) ainsi que pour la création des tables.
-- **models** : Les classes représentant les modèles de données de l'application (`Book`, `Magazine`, `Student`, etc.).
-- **services** : Responsable de l'implémentation des DAO, gérant les opérations CRUD avec PostgreSQL.
-- **views** : Contient les classes liées à l'interface utilisateur console.
-- **utils** : Classes utilitaires pour les opérations de base (ex. gestion de date dans `DateUtils`).
+- **controllers**: Manages controllers that link views and business logic (e.g., `AppController`, `LibraryController`).
+- **dao**: Contains interfaces for accessing document and user data (`DocumentDao`, `BookDao`, etc.).
+- **db**: Contains classes for managing database connections and queries (`DbConnection`, `DbRequest`) as well as table creation.
+- **models**: Classes representing the data models of the application (`Book`, `Magazine`, `Student`, etc.).
+- **services**: Responsible for implementing DAOs, handling CRUD operations with PostgreSQL.
+- **views**: Contains classes related to the console user interface.
+- **utils**: Utility classes for basic operations (e.g., date management in `DateUtils`).
 
-## Description brève de l'architecture adoptée
-L'application suit une architecture MVC (Modèle-Vue-Contrôleur) :
-- **Modèle** : Représente la structure de données (classes `Document`, `Livre`, `Magazine`, etc.).
-- **Vue** : Interface utilisateur sous forme de menus interactifs en ligne de commande.
-- **Contrôleur** : Relie les vues et les modèles, gère la logique métier et les actions utilisateur (classe `AppController`, `LibraryController`).
+## Brief Description of the Adopted Architecture
+The application follows an MVC (Model-View-Controller) architecture:
+- **Model**: Represents the data structure (classes `Document`, `Book`, `Magazine`, etc.).
+- **View**: User interface in the form of interactive command-line menus.
+- **Controller**: Links the views and models, manages business logic and user actions (classes `AppController`, `LibraryController`).
 
-Les données sont gérées via PostgreSQL pour garantir la persistance. Le projet inclut des classes pour la création des tables et l'exécution de requêtes CRUD, assurant ainsi une gestion efficace des documents et des utilisateurs.
+Data is managed via PostgreSQL to ensure persistence. The project includes classes for table creation and executing CRUD queries, ensuring effective management of documents and users.
 
-## Instructions d'installation et d'utilisation
+## Installation and Usage Instructions
 
-### Prérequis
-- **Java 8** ou version supérieure installée
-- **PostgreSQL** pour la persistance des données
-- **Git** pour la gestion des versions du projet
+### Prerequisites
+- **Java 8** or higher installed
+- **PostgreSQL** for data persistence
+- **Git** for project version control
 
-### Étapes pour configurer la base de données
-1. Installer et configurer PostgreSQL.
-2. Créer une base de données pour l'application.
-3. Modifier les configurations dans la classe `DbConnection` pour ajouter vos paramètres de base de données.
-4. Exécuter les scripts SQL dans le répertoire `db` pour créer les tables nécessaires.
+### Steps to Set Up the Database
+1. Install and configure PostgreSQL.
+2. Create a database for the application.
+3. Modify the configurations in the `DbConnection` class to include your database parameters.
+4. Execute the SQL scripts in the `db` directory to create the necessary tables.
 
-### Comment lancer l'application
-1. Clonez le dépôt Git :
+### How to Run the Application
+1. Clone the Git repository:
    ```bash
    git clone https://github.com/JavaAura/BENFILL_S1_B2_gestionBiblio_V
    ```
-2. Importez le projet dans Eclipse IDE.
-3. Compilez et exécutez la classe principale `Main.java`.
-4. Suivez les instructions dans la console pour interagir avec l'application.
+2. Import the project into Eclipse IDE.
+3. Compile and run the main class `Main.java`.
+4. Follow the instructions in the console to interact with the application.
 
-## Améliorations futures possibles
-- **Interface utilisateur graphique** : Création d'une interface graphique avec JavaFX ou Swing pour rendre l'application plus conviviale.
-- **Gestion des utilisateurs avancée** : Ajout des rôles supplémentaires et des permissions spécifiques à chaque rôle.
-- **Statistiques et rapports** : Génération des rapports sur les emprunts, les retours et l'inventaire.
+## Possible Future Enhancements
+- **Graphical User Interface**: Create a graphical interface with JavaFX or Swing to make the application more user-friendly.
+- **Advanced User Management**: Add additional roles and permissions specific to each role.
+- **Statistics and Reports**: Generate reports on borrowing, returns, and inventory.
 
-## Idées pour étendre ou améliorer le projet
-- **Intégration avec des systèmes de gestion de bibliothèque tiers**.
-- **Fonctionnalités d'import/export** pour permettre aux utilisateurs d'importer ou d'exporter les données de la bibliothèque sous forme de fichiers CSV ou JSON.
-- **Recherche avancée** : Ajouter la possibilité de rechercher des documents avec des filtres avancés (par auteur, sujet, etc.).
+## Ideas to Extend or Improve the Project
+- **Integration with Third-Party Library Management Systems**.
+- **Import/Export Features**: Allow users to import or export library data in CSV or JSON format.
+- **Advanced Search**: Add the ability to search for documents with advanced filters (by author, subject, etc.).
 
-## Auteur et contact
-Développé par **Anass Benfillous**.  
-Contact : [Benfianass@gmail.com]
+## Author and Contact
+Developed by **Anass Benfillous**.  
+Contact: [Benfianass@gmail.com]
