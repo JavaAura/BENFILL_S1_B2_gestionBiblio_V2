@@ -51,7 +51,7 @@ Les données sont gérées via PostgreSQL pour garantir la persistance. Le proje
 ### Comment lancer l'application
 1. Clonez le dépôt Git :
    ```bash
-   git clone [<https://github.com/JavaAura/BENFILL_S1_B2_gestionBiblio_V>](https://github.com/JavaAura/BENFILL_S1_B2_gestionBiblio_V)
+   git clone https://github.com/JavaAura/BENFILL_S1_B2_gestionBiblio_V
    ```
 2. Importez le projet dans Eclipse IDE.
 3. Compilez et exécutez la classe principale `AppController.java`.
