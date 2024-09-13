@@ -54,7 +54,7 @@ Les données sont gérées via PostgreSQL pour garantir la persistance. Le proje
    git clone https://github.com/JavaAura/BENFILL_S1_B2_gestionBiblio_V
    ```
 2. Importez le projet dans Eclipse IDE.
-3. Compilez et exécutez la classe principale `AppController.java`.
+3. Compilez et exécutez la classe principale `Main.java`.
 4. Suivez les instructions dans la console pour interagir avec l'application.
 
 ## Améliorations futures possibles
