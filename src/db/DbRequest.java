@@ -12,29 +12,54 @@ public class DbRequest {
 	private static DbConnection dbInstance = DbConnection.getInstance();
 	private static Connection connection = dbInstance.connect();
 
-	public static void createTable(String tableName, String columns) {
+	public static void createTable(String tableName, String columns, String inheritance) {
 		try {
 			Statement statement = connection.createStatement();
-			String createTableSQL = "CREATE TABLE IF NOT EXISTS " + tableName + "( id INT SERIAL NOT NULL PRIMARY KEY"
-					+ columns + ");";
+			String createTableSQL = "CREATE TABLE IF NOT EXISTS " + tableName + "(id SERIAL NOT NULL PRIMARY KEY, "
+					+ columns + ") " + inheritance + ";";
 			statement.execute(createTableSQL);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static ResultSet getAll(String tableName, String condition) {
-		String optional = condition.length() != 0 ? "WHERE " + condition : "";
-		String getAllQuery = "SELECT * FROM " + tableName + " " + optional + ";";
+	public static ResultSet getAll(String tableName, String condition, Object[] conditionValues) {
+		// Building the SQL query with placeholders
+		String optional = condition.length() != 0 ? " WHERE " + condition : "";
+		String getAllQuery = "SELECT * FROM " + tableName + optional + ";";
 		ResultSet rs = null;
+
 		try {
-			Statement stmt = connection.createStatement();
-			rs = stmt.executeQuery(getAllQuery);
+			// Prepare the statement
+			PreparedStatement pstmt = connection.prepareStatement(getAllQuery);
+
+			// Bind the condition values if they exist
+			if (conditionValues != null) {
+				for (int i = 0; i < conditionValues.length; i++) {
+					pstmt.setObject(i + 1, conditionValues[i]);
+				}
+			}
+
+			// Execute the query
+			rs = pstmt.executeQuery();
 			return rs;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static boolean hasResults(ResultSet rs) {
+		try {
+			if (rs != null && rs.next()) {
+				// There's at least one result
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public static void insert(String table, String columns, Object... values) {

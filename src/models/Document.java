@@ -1,30 +1,38 @@
 package models;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public abstract class Document {
-	protected long id;
-	protected String tilte;
-	protected String author;
-	protected LocalDate publicationDate;
-	protected int pagesnumber;
-	protected boolean borrowed = false;
+	private int id;
+	private String title;
+	private String author;
+	private LocalDate publicationDate;
+	private int pagesNumber;
+	private boolean borrowed = false;
+//
+//	public Document(int id, String title, String author, LocalDate date, int pagesNumber, boolean borrowed) {
+//		setId(id);
+//		setTitle(title);
+//		setAuthor(author);
+//		setPublicationDate(date);
+//		setPagesNumber(pagesNumber);
+//		setBorrowed(borrowed);
+//	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getTilte() {
-		return tilte;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTilte(String tilte) {
-		this.tilte = tilte;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getAuthor() {
@@ -43,12 +51,12 @@ public abstract class Document {
 		this.publicationDate = publicationDate;
 	}
 
-	public int getPagesnumber() {
-		return pagesnumber;
+	public int getPagesNumber() {
+		return pagesNumber;
 	}
 
-	public void setPagesnumber(int pagesnumber) {
-		this.pagesnumber = pagesnumber;
+	public void setPagesNumber(int pagesnumber) {
+		this.pagesNumber = pagesnumber;
 	}
 
 	public boolean isBorrowed() {
@@ -58,13 +66,5 @@ public abstract class Document {
 	public void setBorrowed(boolean borrowed) {
 		this.borrowed = borrowed;
 	}
-
-	public abstract ArrayList<?> index();
-
-	public abstract void store();
-
-	public abstract void update(int id);
-
-	public abstract void delete(int id);
 
 }

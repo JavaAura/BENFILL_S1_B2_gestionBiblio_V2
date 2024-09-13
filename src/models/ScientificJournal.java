@@ -1,9 +1,21 @@
 package models;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+
+import utils.DateUtils;
 
 public class ScientificJournal extends Document implements Reservable {
 	private String researchField;
+
+	public ScientificJournal(int id, String title, String author, LocalDate publicationDate, int pagesNumber,
+			String researchField) {
+		setId(id);
+		setTitle(title);
+		setAuthor(author);
+		setPublicationDate(publicationDate);
+		setPagesNumber(pagesNumber);
+		setResearchField(researchField);
+	}
 
 	public String getResearchField() {
 		return researchField;
@@ -25,27 +37,10 @@ public class ScientificJournal extends Document implements Reservable {
 
 	}
 
-	@Override
-	public ArrayList<?> index() {
-		// TODO Auto-generated method stub
-		return null;
+	public void displayDetails() {
+		System.out.printf("%-20s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | Research Field: %-15s%n",
+				"Scientific Journal", getId(), getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()),
+				getPagesNumber(), isBorrowed() ? "YES" : "NO", researchField);
 	}
 
-	@Override
-	public void store() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(int id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-
-	}
 }
