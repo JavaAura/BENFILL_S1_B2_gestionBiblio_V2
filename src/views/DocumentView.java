@@ -2,11 +2,11 @@ package views;
 
 import controllers.DocumentController;
 
-public class Document {
+public class DocumentView {
 
 	private int choice;
 
-	public Document() {
+	public DocumentView() {
 		System.out.println("============================================");
 		System.out.println("|                                          |");
 		System.out.println("|      ✨ Document Management Menu ✨       |");

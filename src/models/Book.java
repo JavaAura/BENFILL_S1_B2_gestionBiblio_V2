@@ -31,8 +31,8 @@ public class Book extends Document implements Borrowable {
 	}
 
 	public void displayDetails() {
-		System.out.printf("%-20s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | ISBN: %-15s%n", "Book ", getId(),
-				getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()), getPagesNumber(),
-				isBorrowed() ? "YES" : "NO", isbn);
+		System.out.printf("%-20s | %-20s | %-20s | %-25s | %-15s | %-10s | ISBN: %-15s%n", "Book ", getTitle(),
+				getAuthor(), DateUtils.toHumanDate(getPublicationDate()), getPagesNumber(), isBorrowed() ? "YES" : "NO",
+				isbn);
 	}
 }

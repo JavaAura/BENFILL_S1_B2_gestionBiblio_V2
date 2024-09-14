@@ -48,9 +48,8 @@ public class UniversityThesis extends Document implements Reservable {
 	}
 
 	public void displayDetails() {
-		System.out.printf(
-				"%-20s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | University: %-15s | Field of Study: %-15s%n",
-				"University Thesis", getId(), getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()),
+		System.out.printf("%-20s | %-20s | %-20s | %-25s | %-15s | %-10s | University: %-15s | Field of Study: %-15s%n",
+				"University Thesis", getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()),
 				getPagesNumber(), isBorrowed() ? "YES" : "NO", university, fieldOfStudy);
 	}
 

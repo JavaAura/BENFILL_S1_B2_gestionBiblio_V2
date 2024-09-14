@@ -32,7 +32,7 @@ public class BookController {
 		bookImpl.updateBook(book);
 	}
 
-	public Document getDocumentByTitle(String title) {
+	public static Document getDocumentByTitle(String title) {
 		Object[] value = { title };
 		ResultSet rs = DbRequest.getAll("books", "title=?", value);
 

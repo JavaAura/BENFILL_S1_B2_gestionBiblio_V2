@@ -1,7 +1,6 @@
 package controllers;
 
-import views.ConsoleUI;
-import views.Document;
+import views.DocumentView;
 import views.ProfView;
 import views.StudentView;
 import views.User;
@@ -38,12 +37,10 @@ public class LibraryController {
 
 				break;
 			case 5:
-				DocumentController.displayDocuments();
-				ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", false);
-				choice = 0;
+				choice = DocumentController.displayDocuments();
 				break;
 			case 6:
-
+				choice = DocumentController.searchForDocument();
 				break;
 			case 7:
 				AppController.running = false;
@@ -71,15 +68,13 @@ public class LibraryController {
 
 				break;
 			case 5:
-				DocumentController.displayDocuments();
-				ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", false);
-				choice = 0;
+				choice = DocumentController.displayDocuments();
 				break;
 			case 6:
-
+				choice = DocumentController.searchForDocument();
 				break;
 			case 7:
-				new Document();
+				new DocumentView();
 				choice = 0;
 				break;
 			case 8:

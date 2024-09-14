@@ -5,11 +5,12 @@ import java.time.LocalDate;
 
 import db.DbRequest;
 import models.Book;
+import models.Document;
 import models.Magazine;
 import models.ScientificJournal;
 import models.UniversityThesis;
 import views.ConsoleUI;
-import views.Document;
+import views.DocumentView;
 
 public class DocumentController {
 
@@ -20,25 +21,19 @@ public class DocumentController {
 	public static void updateDocument(int choice) {
 		String title = ConsoleUI.getUserInputString("Title", "Enter the Title of the document you want to update",
 				false);
-
-		// Step 2: Retrieve current document details
-		models.Document document = null;
+		Document document = null;
 		switch (choice) {
-		case 1: // Book
-			BookController bController = new BookController();
-			document = bController.getDocumentByTitle(title);
+		case 1:
+			document = BookController.getDocumentByTitle(title);
 			break;
-		case 2: // Magazine
-			MagazineController mController = new MagazineController();
-			document = mController.getDocumentByTitle(title);
+		case 2:
+			document = MagazineController.getDocumentByTitle(title);
 			break;
-		case 3: // University Thesis
-			UniversityThesisController uController = new UniversityThesisController();
-			document = uController.getDocumentByTitle(title);
+		case 3:
+			document = UniversityThesisController.getDocumentByTitle(title);
 			break;
-		case 4: // Scientific Journal
-			ScientificJournalController sJournalController = new ScientificJournalController();
-			document = sJournalController.getDocumentByTitle(title);
+		case 4:
+			document = ScientificJournalController.getDocumentByTitle(title);
 			break;
 		default:
 			System.out.println("Invalid choice.");
@@ -50,7 +45,6 @@ public class DocumentController {
 			return;
 		}
 
-		// Step 3: Display current details and get new details from user
 		System.out.println("Current details:");
 		System.out.println("Title: " + document.getTitle());
 		System.out.println("Author: " + document.getAuthor());
@@ -74,7 +68,6 @@ public class DocumentController {
 				"Enter new number of pages (or press Enter to keep current)", true);
 		newPagesNumber = newPagesNumber == -1 ? null : newPagesNumber;
 
-		// Update the document with new values or keep old values
 		if (!newTitle.isEmpty()) {
 			document.setTitle(newTitle);
 		}
@@ -88,9 +81,8 @@ public class DocumentController {
 			document.setPagesNumber(newPagesNumber);
 		}
 
-		// Step 4: Update specific fields based on document type
 		switch (choice) {
-		case 1: // Book
+		case 1:
 			String newIsbn = ConsoleUI.getUserInputString("ISBN", "Enter new ISBN (or press Enter to keep current)",
 					true);
 			if (!newIsbn.isEmpty()) {
@@ -99,7 +91,7 @@ public class DocumentController {
 			BookController bController = new BookController();
 			bController.update((Book) document);
 			break;
-		case 2: // Magazine
+		case 2:
 			Integer newNumber = ConsoleUI.getUserInputInteger("Number",
 					"Enter new number (or press Enter to keep current)", true);
 			if (newNumber != -1) {
@@ -108,7 +100,7 @@ public class DocumentController {
 			MagazineController mController = new MagazineController();
 			mController.update((Magazine) document);
 			break;
-		case 3: // University Thesis
+		case 3:
 			String newUniversity = ConsoleUI.getUserInputString("University",
 					"Enter new University (or press Enter to keep current)", true);
 			String newFieldOfStudy = ConsoleUI.getUserInputString("Field of Study",
@@ -122,7 +114,7 @@ public class DocumentController {
 			UniversityThesisController uController = new UniversityThesisController();
 			uController.update((UniversityThesis) document);
 			break;
-		case 4: // Scientific Journal
+		case 4:
 			String newResearchField = ConsoleUI.getUserInputString("Research Field",
 					"Enter new Research Field (or press Enter to keep current)", true);
 			if (!newResearchField.isEmpty()) {
@@ -171,18 +163,18 @@ public class DocumentController {
 	public static void manageDocument(int choice) {
 		switch (choice) {
 		case 1:
-			Document.addDocument();
+			DocumentView.addDocument();
 			break;
 		case 2:
-			Document.updateDocument();
+			DocumentView.updateDocument();
 			break;
 		case 3:
-			Document.DeleteDocument();
+			DocumentView.DeleteDocument();
 			break;
 		}
 	}
 
-	public static void displayDocuments() {
+	public static int displayDocuments() {
 		ResultSet rs = DbRequest.getAll("documents", "", null);
 
 		Boolean checker = DbRequest.hasResults(rs);
@@ -195,6 +187,9 @@ public class DocumentController {
 			ConsoleUI.tableStyleDown();
 		} else
 			System.out.println("There is no document yet");
+
+		ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", true);
+		return 0;
 	}
 
 	public static void deleteDocument(int choice) {
@@ -253,4 +248,37 @@ public class DocumentController {
 		System.out.println("Document deleted successfully.");
 
 	}
+
+	public static int searchForDocument() {
+		String title = ConsoleUI.getUserInputString("Title", "Please Enter Document Title", false);
+
+		ConsoleUI.tableStyleUp();
+
+		Book book = (Book) BookController.getDocumentByTitle(title);
+		if (book != null) {
+			book.displayDetails();
+		} else {
+			Magazine magazine = (Magazine) MagazineController.getDocumentByTitle(title);
+			if (magazine != null) {
+				magazine.displayDetails();
+			} else {
+				ScientificJournal sJournal = (ScientificJournal) ScientificJournalController.getDocumentByTitle(title);
+				if (sJournal != null) {
+					sJournal.displayDetails();
+				} else {
+					UniversityThesis uThesis = (UniversityThesis) UniversityThesisController.getDocumentByTitle(title);
+					if (uThesis != null) {
+						uThesis.displayDetails();
+					} else {
+						System.out.println("Document not found.");
+					}
+				}
+			}
+		}
+
+		ConsoleUI.tableStyleDown();
+		ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", true);
+		return 0;
+	}
+
 }

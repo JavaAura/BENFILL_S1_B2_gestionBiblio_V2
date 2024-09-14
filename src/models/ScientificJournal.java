@@ -38,8 +38,8 @@ public class ScientificJournal extends Document implements Reservable {
 	}
 
 	public void displayDetails() {
-		System.out.printf("%-20s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | Research Field: %-15s%n",
-				"Scientific Journal", getId(), getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()),
+		System.out.printf("%-20s | %-20s | %-20s | %-25s | %-15s | %-10s | Research Field: %-15s%n",
+				"Scientific Journal", getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()),
 				getPagesNumber(), isBorrowed() ? "YES" : "NO", researchField);
 	}
 

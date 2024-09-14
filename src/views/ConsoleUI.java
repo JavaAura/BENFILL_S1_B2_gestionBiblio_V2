@@ -97,8 +97,8 @@ public class ConsoleUI {
 		System.out.println(" ");
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.printf("%-20s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | %-40s |%n", "Type", "ID", "Title",
-				"Author", "Publication Date", "Pages Number", "Borrowed", "More Details");
+		System.out.printf("%-20s | %-20s | %-20s | %-25s | %-15s | %-10s | %-57s |%n", "Type", "Title", "Author",
+				"Publication Date", "Pages Number", "Borrowed", "More Details");
 
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");

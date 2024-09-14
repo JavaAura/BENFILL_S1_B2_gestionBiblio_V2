@@ -33,9 +33,9 @@ public class ScientificJournalController {
 		documentImpl.updateScientificJournal(document);
 	}
 
-	public Document getDocumentByTitle(String title) {
+	public static Document getDocumentByTitle(String title) {
 		Object[] value = { title };
-		ResultSet rs = DbRequest.getAll("magazines", "title=?", value);
+		ResultSet rs = DbRequest.getAll("scientific_journals", "title=?", value);
 
 		if (!DbRequest.hasResults(rs))
 			return null;

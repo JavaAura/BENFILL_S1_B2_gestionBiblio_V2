@@ -33,9 +33,9 @@ public class UniversityThesisController {
 		documentImpl.updateUniversityThesis(document);
 	}
 
-	public Document getDocumentByTitle(String title) {
+	public static Document getDocumentByTitle(String title) {
 		Object[] value = { title };
-		ResultSet rs = DbRequest.getAll("universityTheses", "title=?", value);
+		ResultSet rs = DbRequest.getAll("university_theses", "title=?", value);
 
 		if (!DbRequest.hasResults(rs))
 			return null;

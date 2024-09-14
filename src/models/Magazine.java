@@ -43,8 +43,8 @@ public class Magazine extends Document implements Borrowable, Reservable {
 	}
 
 	public void displayDetails() {
-		System.out.printf("%-20s | %-15s | %-20s | %-20s | %-25s | %-15s | %-10s | Number: %-15s%n", "Magazine ",
-				getId(), getTitle(), getAuthor(), DateUtils.toHumanDate(getPublicationDate()), getPagesNumber(),
-				isBorrowed() ? "YES" : "NO", number);
+		System.out.printf("%-20s | %-20s | %-20s | %-25s | %-15s | %-10s | Number: %-15s%n", "Magazine ", getTitle(),
+				getAuthor(), DateUtils.toHumanDate(getPublicationDate()), getPagesNumber(), isBorrowed() ? "YES" : "NO",
+				number);
 	}
 }

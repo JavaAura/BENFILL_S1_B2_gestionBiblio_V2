@@ -32,7 +32,7 @@ public class MagazineController {
 		documentImpl.updateMagazine(magzine);
 	}
 
-	public Document getDocumentByTitle(String title) {
+	public static Document getDocumentByTitle(String title) {
 		Object[] value = { title };
 		ResultSet rs = DbRequest.getAll("magazines", "title=?", value);
 
