@@ -4,6 +4,7 @@ import views.ConsoleUI;
 import views.Document;
 import views.ProfView;
 import views.StudentView;
+import views.User;
 
 public class LibraryController {
 	public int choice = 0;
@@ -37,8 +38,7 @@ public class LibraryController {
 
 				break;
 			case 5:
-				DocumentController dController = new DocumentController();
-				dController.displayDocuments();
+				DocumentController.displayDocuments();
 				ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", false);
 				choice = 0;
 				break;
@@ -71,8 +71,7 @@ public class LibraryController {
 
 				break;
 			case 5:
-				DocumentController dController = new DocumentController();
-				dController.displayDocuments();
+				DocumentController.displayDocuments();
 				ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", false);
 				choice = 0;
 				break;
@@ -80,11 +79,12 @@ public class LibraryController {
 
 				break;
 			case 7:
-				Document document = new Document();
+				new Document();
 				choice = 0;
 				break;
 			case 8:
-
+				new User();
+				choice = 0;
 				break;
 			case 9:
 				AppController.running = false;

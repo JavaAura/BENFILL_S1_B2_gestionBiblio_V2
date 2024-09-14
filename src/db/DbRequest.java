@@ -24,23 +24,17 @@ public class DbRequest {
 	}
 
 	public static ResultSet getAll(String tableName, String condition, Object[] conditionValues) {
-		// Building the SQL query with placeholders
 		String optional = condition.length() != 0 ? " WHERE " + condition : "";
 		String getAllQuery = "SELECT * FROM " + tableName + optional + ";";
 		ResultSet rs = null;
 
 		try {
-			// Prepare the statement
 			PreparedStatement pstmt = connection.prepareStatement(getAllQuery);
-
-			// Bind the condition values if they exist
 			if (conditionValues != null) {
 				for (int i = 0; i < conditionValues.length; i++) {
 					pstmt.setObject(i + 1, conditionValues[i]);
 				}
 			}
-
-			// Execute the query
 			rs = pstmt.executeQuery();
 			return rs;
 
@@ -53,7 +47,6 @@ public class DbRequest {
 	public static boolean hasResults(ResultSet rs) {
 		try {
 			if (rs != null && rs.next()) {
-				// There's at least one result
 				return true;
 			}
 		} catch (SQLException e) {

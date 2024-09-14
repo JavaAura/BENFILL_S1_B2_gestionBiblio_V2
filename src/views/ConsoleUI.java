@@ -11,17 +11,24 @@ public class ConsoleUI {
 	public static int getUserInputInteger(String label, String textToPrint, boolean optional) {
 		int input = 0;
 		boolean checker = false;
+
 		while (!checker) {
 			System.out.print(textToPrint + ": ");
-			if (scanner.hasNextInt()) {
-				input = scanner.nextInt();
+			String userInput = scanner.nextLine().trim();
+			if (optional && userInput.isEmpty()) {
+				return -1;
+			}
+
+			try {
+				input = Integer.parseInt(userInput);
 				checker = true;
-			} else if (!optional) {
-				System.out.println(label + " cannot be empty. " + textToPrint + ": ");
-				scanner.next();
+			} catch (NumberFormatException e) {
+				if (!optional) {
+					System.out.println(label + " cannot be empty and must be an integer. Please try again.");
+				}
 			}
 		}
-		scanner.nextLine();
+
 		return input;
 	}
 

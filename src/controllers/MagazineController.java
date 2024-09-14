@@ -1,14 +1,18 @@
 package controllers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import db.DbRequest;
+import models.Document;
 import models.Magazine;
 import services.MagazineImpl;
 
 public class MagazineController {
 
-	public void index() {
+	public static void index() {
 		MagazineImpl magazineImpl = new MagazineImpl();
 		List<Magazine> list = magazineImpl.displayMagazines();
 
@@ -23,11 +27,27 @@ public class MagazineController {
 		magazineImpl.addMagazine(document);
 	}
 
-	public void update(String title, String author, LocalDate publicationDate, int pagesNumber, int number) {
-		Magazine document = new Magazine(0, title, author, publicationDate, pagesNumber, number);
-
+	public void update(Magazine magzine) {
 		MagazineImpl documentImpl = new MagazineImpl();
-		documentImpl.updateMagazine(document);
+		documentImpl.updateMagazine(magzine);
+	}
+
+	public Document getDocumentByTitle(String title) {
+		Object[] value = { title };
+		ResultSet rs = DbRequest.getAll("magazines", "title=?", value);
+
+		if (!DbRequest.hasResults(rs))
+			return null;
+
+		Magazine magazine = null;
+		try {
+			LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
+			magazine = new Magazine(rs.getInt("id"), title, rs.getString("author"), date, rs.getInt("pagesNumber"),
+					rs.getInt("number"));
+		} catch (SQLException e) {
+
+		}
+		return magazine;
 	}
 
 }

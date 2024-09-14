@@ -17,22 +17,4 @@ public class Professor extends User {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-
-	@Override
-	public void store() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(int id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-
-	}
 }

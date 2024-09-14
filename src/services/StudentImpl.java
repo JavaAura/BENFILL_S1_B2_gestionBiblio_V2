@@ -64,6 +64,7 @@ public class StudentImpl implements StudentDao {
 				DbRequest.update("students", student.getId(), columns, values);
 			} catch (Exception e) {
 //				Logger.err
+				return false;
 			}
 		} else
 			return false;

@@ -13,12 +13,6 @@ public abstract class User {
 
 	}
 
-	public abstract void store();
-
-	public abstract void update(int id);
-
-	public abstract void delete(int id);
-
 	public int getId() {
 		return id;
 	}

@@ -1,14 +1,18 @@
 package controllers;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import db.DbRequest;
 import models.Book;
+import models.Document;
 import services.BookImpl;
 
 public class BookController {
 
-	public void index() {
+	public static void index() {
 		BookImpl bookImpl = new BookImpl();
 		List<Book> booksList = bookImpl.displayBooks();
 
@@ -23,11 +27,27 @@ public class BookController {
 		bookImpl.addBook(book);
 	}
 
-	public void update(String title, String author, LocalDate publicationDate, int pagesNumber, String isbn) {
-		Book book = new Book(0, title, author, publicationDate, pagesNumber, isbn);
-
+	public void update(Book book) {
 		BookImpl bookImpl = new BookImpl();
 		bookImpl.updateBook(book);
+	}
+
+	public Document getDocumentByTitle(String title) {
+		Object[] value = { title };
+		ResultSet rs = DbRequest.getAll("books", "title=?", value);
+
+		if (!DbRequest.hasResults(rs))
+			return null;
+
+		Book book = null;
+		try {
+			LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
+			book = new Book(rs.getInt("id"), title, rs.getString("author"), date, rs.getInt("pagesNumber"),
+					rs.getString("isbn"));
+		} catch (SQLException e) {
+
+		}
+		return book;
 	}
 
 }

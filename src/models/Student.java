@@ -18,22 +18,4 @@ public class Student extends User {
 	public void setAcademicLevel(String academicLevel) {
 		this.academicLevel = academicLevel;
 	}
-
-	@Override
-	public void store() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void update(int id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-
-	}
 }
