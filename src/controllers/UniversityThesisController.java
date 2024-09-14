@@ -22,7 +22,7 @@ public class UniversityThesisController {
 	public void store(String title, String author, LocalDate publicationDate, int pagesNumber, String university,
 			String fieldOfStudy) {
 		UniversityThesis document = new UniversityThesis(0, title, author, publicationDate, pagesNumber, university,
-				fieldOfStudy);
+				fieldOfStudy, false);
 
 		UniversityThesisImpl universityThesisImpl = new UniversityThesisImpl();
 		universityThesisImpl.addUniversityThesis(document);
@@ -44,7 +44,7 @@ public class UniversityThesisController {
 		try {
 			LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 			u = new UniversityThesis(rs.getInt("id"), title, rs.getString("author"), date, rs.getInt("pagesNumber"),
-					rs.getString("university"), rs.getString("fieldOfStudy"));
+					rs.getString("university"), rs.getString("fieldOfStudy"), rs.getBoolean("borrowed"));
 		} catch (SQLException e) {
 
 		}

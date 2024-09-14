@@ -30,7 +30,7 @@ public class MagazineImpl implements MagazineDao {
 			while (rs != null && rs.next()) {
 				LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 				Magazine magazine = new Magazine(rs.getInt("id"), rs.getString("title"), rs.getString("author"), date,
-						rs.getInt("pagesNumber"), rs.getInt("number"));
+						rs.getInt("pagesNumber"), rs.getInt("number"), rs.getBoolean("borrowed"));
 				list.add(magazine);
 			}
 		} catch (SQLException e) {

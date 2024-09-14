@@ -15,8 +15,14 @@ public class DbRequest {
 	public static void createTable(String tableName, String columns, String inheritance) {
 		try {
 			Statement statement = connection.createStatement();
-			String createTableSQL = "CREATE TABLE IF NOT EXISTS " + tableName + "(id SERIAL NOT NULL PRIMARY KEY, "
-					+ columns + ") " + inheritance + ";";
+			String createTableSQL;
+
+			if (inheritance.equals("SEQUENCE")) {
+				createTableSQL = "CREATE SEQUENCE IF NOT EXISTS " + tableName;
+			} else {
+				createTableSQL = "CREATE TABLE IF NOT EXISTS " + tableName + "(" + columns + ") " + inheritance + ";";
+			}
+
 			statement.execute(createTableSQL);
 		} catch (SQLException e) {
 			e.printStackTrace();

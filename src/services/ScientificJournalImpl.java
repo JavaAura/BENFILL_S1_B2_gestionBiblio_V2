@@ -30,7 +30,8 @@ public class ScientificJournalImpl implements ScientificJournalDao {
 			while (rs != null && rs.next()) {
 				LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 				ScientificJournal scientificJournal = new ScientificJournal(rs.getInt("id"), rs.getString("title"),
-						rs.getString("author"), date, rs.getInt("pagesNumber"), rs.getString("researchField"));
+						rs.getString("author"), date, rs.getInt("pagesNumber"), rs.getString("researchField"),
+						rs.getBoolean("borrowed"));
 				list.add(scientificJournal);
 			}
 		} catch (SQLException e) {

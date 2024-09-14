@@ -29,7 +29,7 @@ public class BookImpl implements BookDao {
 			while (rs != null && rs.next()) {
 				LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 				Book book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), date,
-						rs.getInt("pagesNumber"), rs.getString("isbn"));
+						rs.getInt("pagesNumber"), rs.getString("isbn"), rs.getBoolean("borrowed"));
 				list.add(book);
 			}
 		} catch (SQLException e) {

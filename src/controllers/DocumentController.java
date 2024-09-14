@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import db.DbRequest;
@@ -14,7 +15,140 @@ import views.DocumentView;
 
 public class DocumentController {
 
-	public void reserveDocument() {
+	public static int borrowDocument() {
+		String title = ConsoleUI.getUserInputString("Title", "Enter the Title of the document you want to borrow",
+				false);
+		Object[] value = { title };
+
+		ResultSet dSet = DbRequest.getAll("documents", "title=?", value);
+
+		if (!DbRequest.hasResults(dSet)) {
+			System.out.println("Document not found.");
+			return 0;
+		}
+
+		String type = "";
+		try {
+			type = dSet.getString("type");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		Document document = null;
+		switch (type) {
+		case "book":
+			document = BookController.getDocumentByTitle(title);
+			break;
+		case "magazine":
+			document = MagazineController.getDocumentByTitle(title);
+			break;
+		case "universityThesis":
+			document = UniversityThesisController.getDocumentByTitle(title);
+			break;
+		case "scientificJournal":
+			document = ScientificJournalController.getDocumentByTitle(title);
+			break;
+		}
+
+		System.out.println("Current details:");
+		System.out.println("Title: " + document.getTitle());
+		System.out.println("Author: " + document.getAuthor());
+		System.out.println("Publication Date: " + document.getPublicationDate());
+		System.out.println("Number of Pages: " + document.getPagesNumber());
+
+		String response = ConsoleUI.getUserInputString("Confirmation", "Do you want to borrow this Document? (y/n)",
+				false);
+		if (!response.equalsIgnoreCase("y")) {
+			System.out.println("Update operation cancelled.");
+			return 0;
+		}
+
+		int documentId = document.getId();
+		Boolean isBorrowed = document.isBorrowed();
+
+		if (isBorrowed) {
+			response = ConsoleUI.getUserInputString("Reservation",
+					"This Document is borrowed do you want to reserve this Document? (y/n)", false);
+			if (!response.equalsIgnoreCase("y")) {
+				System.out.println("Borrow operation cancelled.");
+				return 0;
+			}
+		}
+
+		ResultSet uSet = null;
+		boolean userFound = false;
+		while (!userFound) {
+			String name = ConsoleUI.getUserInputString("Name",
+					"Enter the User Name of the User who want to borrow this Document", false);
+			Object[] value2 = { name };
+			uSet = DbRequest.getAll("users", "name=?", value2);
+
+			if (DbRequest.hasResults(uSet)) {
+				userFound = true;
+			} else {
+				System.out.println("User not found.");
+				response = ConsoleUI.getUserInputString("Username", "Try Again? (y/n)", false);
+				if (!response.equalsIgnoreCase("y")) {
+					System.out.println("Update operation cancelled.");
+					return 0;
+				}
+			}
+		}
+
+		int userId;
+
+		try {
+			userId = uSet.getInt("id");
+			System.out.println("User found:");
+			System.out.println("Name: " + uSet.getString("name"));
+			System.out.println("Email: " + uSet.getString("email"));
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		response = ConsoleUI.getUserInputString("Confirmation", "Do you want to choose this user? (y/n)", false);
+		if (!response.equalsIgnoreCase("y")) {
+			System.out.println("Update operation cancelled.");
+			return 0;
+		}
+
+		switch (type) {
+		case "book":
+			if (isBorrowed)
+				document.reserve(userId, documentId);
+			else
+				document.borrow(userId, documentId);
+			break;
+		case "magazine":
+			if (isBorrowed)
+				document.reserve(userId, documentId);
+			else
+				document.borrow(userId, documentId);
+			break;
+		case "universityThesis":
+			if (isBorrowed)
+				document.reserve(userId, documentId);
+			else
+				document.borrow(userId, documentId);
+			break;
+		case "scientificJournal":
+			if (isBorrowed)
+				document.reserve(userId, documentId);
+			else
+				document.borrow(userId, documentId);
+			break;
+
+		}
+
+		if (isBorrowed)
+			System.out.println("Document reserved successfully.");
+		else
+			System.out.println("Document borrowed successfully.");
+		return 0;
 
 	}
 
@@ -196,28 +330,23 @@ public class DocumentController {
 		String title = ConsoleUI.getUserInputString("Title", "Enter the Title of the document you want to delete",
 				false);
 
-		// Step 2: Retrieve current document details
 		models.Document document = null;
 		String table = null;
 		switch (choice) {
-		case 1: // Book
-			BookController bController = new BookController();
-			document = bController.getDocumentByTitle(title);
+		case 1:
+			document = BookController.getDocumentByTitle(title);
 			table = "books";
 			break;
-		case 2: // Magazine
-			MagazineController mController = new MagazineController();
-			document = mController.getDocumentByTitle(title);
+		case 2:
+			document = MagazineController.getDocumentByTitle(title);
 			table = "magazines";
 			break;
-		case 3: // University Thesis
-			UniversityThesisController uController = new UniversityThesisController();
-			document = uController.getDocumentByTitle(title);
+		case 3:
+			document = UniversityThesisController.getDocumentByTitle(title);
 			table = "university_theses";
 			break;
-		case 4: // Scientific Journal
-			ScientificJournalController sJournalController = new ScientificJournalController();
-			document = sJournalController.getDocumentByTitle(title);
+		case 4:
+			document = ScientificJournalController.getDocumentByTitle(title);
 			table = "scientific_journals";
 			break;
 		default:
@@ -230,7 +359,6 @@ public class DocumentController {
 			return;
 		}
 
-		// Step 3: Display current details and get new details from user
 		System.out.println("Current details:");
 		System.out.println("Title: " + document.getTitle());
 		System.out.println("Author: " + document.getAuthor());
@@ -278,6 +406,139 @@ public class DocumentController {
 
 		ConsoleUI.tableStyleDown();
 		ConsoleUI.getUserInputInteger("Main Menu Choice", "Enter 0 to Return Back to Home", true);
+		return 0;
+	}
+
+	public static int returnDocument() {
+		String title = ConsoleUI.getUserInputString("Title", "Enter the Title of the document you want to return",
+				false);
+		Object[] value = { title };
+
+		ResultSet dSet = DbRequest.getAll("documents", "title=?", value);
+
+		if (!DbRequest.hasResults(dSet)) {
+			System.out.println("Document not found.");
+			return 0;
+		}
+
+		String type = "";
+		try {
+			type = dSet.getString("type");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		Document document = null;
+		switch (type) {
+		case "book":
+			document = BookController.getDocumentByTitle(title);
+			break;
+		case "magazine":
+			document = MagazineController.getDocumentByTitle(title);
+			break;
+		case "universityThesis":
+			document = UniversityThesisController.getDocumentByTitle(title);
+			break;
+		case "scientificJournal":
+			document = ScientificJournalController.getDocumentByTitle(title);
+			break;
+		}
+
+		System.out.println("Current details:");
+		System.out.println("Title: " + document.getTitle());
+		System.out.println("Author: " + document.getAuthor());
+		System.out.println("Publication Date: " + document.getPublicationDate());
+		System.out.println("Number of Pages: " + document.getPagesNumber());
+
+		String response = ConsoleUI.getUserInputString("Confirmation", "Do you want to return this Document? (y/n)",
+				false);
+		if (!response.equalsIgnoreCase("y")) {
+			System.out.println("Update operation cancelled.");
+			return 0;
+		}
+
+		int documentId = document.getId();
+		Boolean isBorrowed = document.isBorrowed();
+
+		if (!isBorrowed) {
+			ConsoleUI.getUserInputString("error", "Document is not borrowed yet. enter anything to return home", true);
+			return 0;
+		}
+
+		ResultSet uSet = null;
+		boolean userFound = false;
+		while (!userFound) {
+			String name = ConsoleUI.getUserInputString("Name",
+					"Enter the User Name of the User who want to return this Document", false);
+			Object[] value2 = { name };
+			uSet = DbRequest.getAll("users", "name=?", value2);
+
+			if (DbRequest.hasResults(uSet)) {
+				userFound = true;
+			} else {
+				System.out.println("User not found.");
+				response = ConsoleUI.getUserInputString("Username", "Try Again? (y/n)", false);
+				if (!response.equalsIgnoreCase("y")) {
+					System.out.println("Update operation cancelled.");
+					return 0;
+				}
+			}
+		}
+
+		int userId;
+
+		try {
+			userId = uSet.getInt("id");
+			System.out.println("User found:");
+			System.out.println("Name: " + uSet.getString("name"));
+			System.out.println("Email: " + uSet.getString("email"));
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		response = ConsoleUI.getUserInputString("Confirmation", "Do you want to choose this user? (y/n)", false);
+		if (!response.equalsIgnoreCase("y")) {
+			System.out.println("Update operation cancelled.");
+			return 0;
+		}
+
+		Object[] condition = { userId, documentId };
+		ResultSet bSet = DbRequest.getAll("borrowings", "user_id=? AND document_id=?", condition);
+		if (!DbRequest.hasResults(bSet)) {
+			System.out.println("This user is not borrowing this document. Try again...");
+			return 0;
+		}
+		int id = 0;
+		try {
+			id = bSet.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		switch (type) {
+		case "book":
+			document.returnItem(id);
+		case "magazine":
+			document.returnItem(id);
+			break;
+		case "universityThesis":
+			document.returnItem(id);
+			break;
+		case "scientificJournal":
+			document.returnItem(id);
+			break;
+
+		}
+		System.out.println("Document returned successfully.");
+		return 0;
+	}
+
+	public static int cancelReservation() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 

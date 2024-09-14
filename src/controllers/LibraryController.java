@@ -25,24 +25,21 @@ public class LibraryController {
 				choice = sView.getChoice();
 				break;
 			case 1:
-
+				choice = DocumentController.borrowDocument();
 				break;
 			case 2:
-
+				choice = DocumentController.returnDocument();
 				break;
 			case 3:
-
+				choice = DocumentController.cancelReservation();
 				break;
 			case 4:
-
-				break;
-			case 5:
 				choice = DocumentController.displayDocuments();
 				break;
-			case 6:
+			case 5:
 				choice = DocumentController.searchForDocument();
 				break;
-			case 7:
+			case 6:
 				AppController.running = false;
 				System.out.println("Exiting the application...");
 				break;
@@ -58,30 +55,29 @@ public class LibraryController {
 				choice = profView.getChoice();
 				break;
 			case 1:
+				choice = DocumentController.borrowDocument();
 				break;
 			case 2:
+				choice = DocumentController.returnDocument();
 				break;
 			case 3:
-
+				choice = DocumentController.cancelReservation();
 				break;
 			case 4:
-
-				break;
-			case 5:
 				choice = DocumentController.displayDocuments();
 				break;
-			case 6:
+			case 5:
 				choice = DocumentController.searchForDocument();
 				break;
-			case 7:
+			case 6:
 				new DocumentView();
 				choice = 0;
 				break;
-			case 8:
+			case 7:
 				new User();
 				choice = 0;
 				break;
-			case 9:
+			case 8:
 				AppController.running = false;
 				System.out.println("Exiting the application...");
 				break;

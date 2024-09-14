@@ -21,7 +21,7 @@ public class ScientificJournalController {
 
 	public void store(String title, String author, LocalDate publicationDate, int pagesNumber, String researchField) {
 		ScientificJournal document = new ScientificJournal(0, title, author, publicationDate, pagesNumber,
-				researchField);
+				researchField, false);
 
 		ScientificJournalImpl magazineImpl = new ScientificJournalImpl();
 		magazineImpl.addScientificJournal(document);
@@ -44,7 +44,7 @@ public class ScientificJournalController {
 		try {
 			LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 			sj = new ScientificJournal(rs.getInt("id"), title, rs.getString("author"), date, rs.getInt("pagesNumber"),
-					rs.getString("pagesNumber"));
+					rs.getString("pagesNumber"), rs.getBoolean("borrowed"));
 		} catch (SQLException e) {
 
 		}

@@ -21,7 +21,7 @@ public class MagazineController {
 	}
 
 	public void store(String title, String author, LocalDate publicationDate, int pagesNumber, int number) {
-		Magazine document = new Magazine(0, title, author, publicationDate, pagesNumber, number);
+		Magazine document = new Magazine(0, title, author, publicationDate, pagesNumber, number, false);
 
 		MagazineImpl magazineImpl = new MagazineImpl();
 		magazineImpl.addMagazine(document);
@@ -43,7 +43,7 @@ public class MagazineController {
 		try {
 			LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 			magazine = new Magazine(rs.getInt("id"), title, rs.getString("author"), date, rs.getInt("pagesNumber"),
-					rs.getInt("number"));
+					rs.getInt("number"), rs.getBoolean("borrowed"));
 		} catch (SQLException e) {
 
 		}

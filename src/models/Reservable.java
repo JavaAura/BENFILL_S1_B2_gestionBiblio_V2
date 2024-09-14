@@ -1,7 +1,7 @@
 package models;
 
 public interface Reservable {
-	public void reserve();;
+	public void reserve(int userId, int documentId);;
 
-	public void cancelReservation();
+	public void cancelReservation(int id);
 }

@@ -32,7 +32,7 @@ public class UniversityThesisImpl implements UniversityThesisDao {
 				LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 				UniversityThesis universityThesis = new UniversityThesis(rs.getInt("id"), rs.getString("title"),
 						rs.getString("author"), date, rs.getInt("pagesNumber"), rs.getString("university"),
-						rs.getString("fieldOfStudy"));
+						rs.getString("fieldOfStudy"), rs.getBoolean("borrowed"));
 				list.add(universityThesis);
 			}
 		} catch (SQLException e) {

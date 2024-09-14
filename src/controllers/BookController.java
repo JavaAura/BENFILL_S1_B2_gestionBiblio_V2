@@ -21,7 +21,7 @@ public class BookController {
 	}
 
 	public void store(String title, String author, LocalDate publicationDate, int pagesNumber, String isbn) {
-		Book book = new Book(0, title, author, publicationDate, pagesNumber, isbn);
+		Book book = new Book(0, title, author, publicationDate, pagesNumber, isbn, false);
 
 		BookImpl bookImpl = new BookImpl();
 		bookImpl.addBook(book);
@@ -43,7 +43,7 @@ public class BookController {
 		try {
 			LocalDate date = LocalDate.parse(rs.getString("publicationDate"));
 			book = new Book(rs.getInt("id"), title, rs.getString("author"), date, rs.getInt("pagesNumber"),
-					rs.getString("isbn"));
+					rs.getString("isbn"), rs.getBoolean("borrowed"));
 		} catch (SQLException e) {
 
 		}

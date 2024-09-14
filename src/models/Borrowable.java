@@ -1,9 +1,7 @@
 package models;
 
-@FunctionalInterface
 public interface Borrowable {
-	public void borrow();;
+	public void borrow(int userId, int documentId);;
 
-	public static void returnItem() {
-	};
+	public void returnItem(int id);;
 }

@@ -2,22 +2,13 @@ package models;
 
 import java.time.LocalDate;
 
-public abstract class Document {
+public abstract class Document implements Borrowable, Reservable {
 	private int id;
 	private String title;
 	private String author;
 	private LocalDate publicationDate;
 	private int pagesNumber;
 	private boolean borrowed = false;
-//
-//	public Document(int id, String title, String author, LocalDate date, int pagesNumber, boolean borrowed) {
-//		setId(id);
-//		setTitle(title);
-//		setAuthor(author);
-//		setPublicationDate(date);
-//		setPagesNumber(pagesNumber);
-//		setBorrowed(borrowed);
-//	}
 
 	public int getId() {
 		return id;
